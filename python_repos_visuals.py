@@ -19,8 +19,8 @@ print(f"Complete results: {not response_dict['incomplete_results']}")
 repo_dict = response_dict["items"]
 repo_links, stars, hover_texts = [], [], []    # Lists to store repository names and stars
 
-
-for repo in repo_dict:
+# Extract info form first 20 repos for visualization
+for repo in repo_dict[0:20]:
     # Turn repo names into links
     repo_name = repo["name"]
     repo_url = repo["html_url"]
@@ -42,5 +42,8 @@ fig = px.bar(x=repo_links, y=stars, title=title, labels=labels,
 fig.update_layout(title_font_size=28, xaxis_title_font_size=20, 
                 yaxis_title_font_size=20)
 
+# Customize colour makers
+fig.update_traces(marker_color="SteelBlue", marker_opacity=0.6)
 
-offline.plot(fig, filename='charts/most_starred_python_repos(3).html')
+
+offline.plot(fig, filename='charts/most_starred_python_repos.html')
