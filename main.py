@@ -22,3 +22,9 @@ print(f"Complete results: {not response_dict['incomplete_results']}")
 # Explore information about the repositories
 repo_dict = response_dict["items"]
 print(f"Repositories returned: {len(repo_dict)}")
+
+# Examine the first repository
+first_repo = repo_dict[0]
+print(f"\nKeys: {len(first_repo)}")
+for key in sorted(first_repo.keys()):
+    print(key)
