@@ -18,3 +18,7 @@ print(response_dict.keys())
 # Print the total number of repositories
 print(f"Total repositories: {response_dict['total_count']}")
 print(f"Complete results: {not response_dict['incomplete_results']}")
+
+# Explore information about the repositories
+repo_dict = response_dict["items"]
+print(f"Repositories returned: {len(repo_dict)}")
