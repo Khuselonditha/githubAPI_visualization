@@ -9,3 +9,7 @@ url += "?q=language:python+sort:stars+stars:>1000"
 headers = {"Accept": "application/vnd.github.v3+json"}
 response = requests.get(url, headers=headers)
 print(f"Status code: {response.status_code}")
+
+# Process the results
+response_dict = response.json()
+print(f"Complete results: {not response_dict['incomplete_results']}")
