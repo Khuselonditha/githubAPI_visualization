@@ -17,12 +17,30 @@ print(f"Complete results: {not response_dict['incomplete_results']}")
 
 # Process repository information
 repo_dict = response_dict["items"]
-repo_names, stars = [], []      # Lists to store repository names and stars
+repo_links, stars, hover_texts = [], [], []    # Lists to store repository names and stars
+
+
 for repo in repo_dict:
-    repo_names.append(repo["name"])
+    # Turn repo names into links
+    repo_name = repo["name"]
+    repo_url = repo["html_url"]
+    repo_link = f"<a href='{repo_url}'>{repo_name}</a>"
+    repo_links.append(repo_link)
     stars.append(repo["stargazers_count"])
 
+    # Build hover text
+    owner = repo["owner"]["login"]
+    description = repo["description"]
+    hover_text = f"{owner}<br />{description}"
+    hover_texts.append(hover_text)
+
 # Make visualization
-fig = px.bar(x=repo_names, y=stars, title="Most-Starred Python Projects on GitHub")
-fig.update_layout(xaxis_title="Repositories", yaxis_title="Stars")
-offline.plot(fig, filename='charts/most_starred_python_repos.html')
+title = "Most-Starred Python Projects on GitHub"
+labels = {"x": "Repository", "y": "Stars"}
+fig = px.bar(x=repo_links, y=stars, title=title, labels=labels,
+            hover_name=hover_texts)
+fig.update_layout(title_font_size=28, xaxis_title_font_size=20, 
+                yaxis_title_font_size=20)
+
+
+offline.plot(fig, filename='charts/most_starred_python_repos(3).html')
